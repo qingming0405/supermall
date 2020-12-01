@@ -5,12 +5,15 @@
         <div>购物街</div>
       </template>
     </nav-bar>
-    <home-swiper :banners="banners"></home-swiper>
-    <recommend-view :recommends="recommends"></recommend-view>
-    <feature-view></feature-view>
-    <tab-control class="tab-control" :titles="['流行','新款','精选']" 
-                @tabClick="tabClick"></tab-control>
-    <goods-list :goods="showGoodsList"></goods-list>
+    <!-- <scroll ref="scroll" class="content"> -->
+       <home-swiper :banners="banners"></home-swiper>
+      <recommend-view :recommends="recommends"></recommend-view>
+      <feature-view></feature-view>
+      <tab-control class="tab-control" :titles="['流行','新款','精选']" 
+                  @tabClick="tabClick"></tab-control>
+      <goods-list :goods="showGoodsList"></goods-list>
+    <!-- </scroll> -->
+   
   </div>
 </template>
   
@@ -25,6 +28,7 @@ import RecommendView from './childComps/RecommendView.vue'
 import FeatureView from './childComps/FeatureView.vue'
 
 import {getHomeMultidata, getHomeGoods} from 'network/home'
+// import Scroll from '../../components/common/scroll/Scroll.vue'
 
 
 export default {
@@ -35,7 +39,8 @@ export default {
     RecommendView,
     FeatureView,
     TabControl,
-    GoodsList
+    GoodsList,
+    // Scroll
   },
   data() {
     return {
