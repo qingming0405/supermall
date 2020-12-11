@@ -72,6 +72,11 @@ export default {
     this.getHomeGoods('pop')
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
+
+    //监听全局事件
+    this.mitt.on('imgLoad', () => {
+      this.$refs.scroll.refresh()
+    })
   },
   methods: {
     /**

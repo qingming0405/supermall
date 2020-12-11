@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img" :key="showImage" alt="">
+    <img :src="goodsItem.show.img" :key="showImage" alt="" @load="imgLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -41,7 +41,8 @@
         this.$router.push({path: '/detail', query: {iid}})
       },
 	    imgLoad() {
-		    this.$bus.$emit('img-load')
+        //发送图片加载成功事件
+		     this.mitt.on('img-load')
 	    }
     }
   }
