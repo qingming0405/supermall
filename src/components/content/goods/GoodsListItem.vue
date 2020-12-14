@@ -42,7 +42,8 @@
       },
 	    imgLoad() {
         //发送图片加载成功事件
-		     this.mitt.on('img-load')
+        //注意：这里自定义事件名不支持'img-load'
+		     this.mitt.emit('imgLoad')
 	    }
     }
   }

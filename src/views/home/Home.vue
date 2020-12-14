@@ -73,8 +73,10 @@ export default {
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
 
-    //监听全局事件
-    this.mitt.on('imgLoad', () => {
+  },
+  mounted() {
+    // 监听全局事件
+    this.mitt.on('imgLoad', e => {
       this.$refs.scroll.refresh()
     })
   },

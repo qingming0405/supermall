@@ -6,4 +6,5 @@ import mitt from 'mitt'
 
 const app = createApp(App)
 app.use(store).use(router).mount('#app')
+
 app.config.globalProperties.mitt = mitt()
