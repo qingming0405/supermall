@@ -75,9 +75,11 @@ export default {
 
   },
   mounted() {
+    const refresh = this.debounce(this.$refs.scroll.refresh, 500)
     // 监听全局事件
     this.mitt.on('imgLoad', e => {
-      this.$refs.scroll.refresh()
+      refresh()
+      // this.$refs.scroll && this.$refs.scroll.refresh()
     })
   },
   methods: {
@@ -105,6 +107,16 @@ export default {
     /**
      * 事件监听
      */
+    // 防抖函数：延迟频繁执行的函数
+    debounce(func, delay){
+      let timer = null
+      return function(...args){
+        timer && clearTimeout(timer)
+        timer = setTimeout(() => {
+          func.apply(this, args)
+        }, delay);
+      }
+    },
     tabClick(index){
       switch(index){
         case 0:
