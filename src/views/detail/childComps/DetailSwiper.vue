@@ -29,7 +29,7 @@ export default {
 
 <style scoped>
  .swiper-item{
-   height: 400px;
+   height: 350px;
    overflow: hidden;
  }
  .swiper-item img{
