@@ -7,6 +7,7 @@
       <detail-shop-info :shop="shop"></detail-shop-info>
       <detail-goods-info :detailInfo="detailInfo" @image-load="imageLoad"></detail-goods-info>
       <detail-param-info :paramInfo="paramInfo"></detail-param-info>
+      <detail-comment-info :commentInfo="commentInfo"/>
     </scroll>
   </div>
 </template>
@@ -21,6 +22,7 @@ import DetailShopInfo from './childComps/DetailShopInfo.vue'
 import Scroll from 'components/common/scroll/Scroll.vue'
 import DetailGoodsInfo from './childComps/DetailGoodsInfo.vue'
 import DetailParamInfo from './childComps/DetailParamInfo.vue'
+import DetailCommentInfo from './childComps/DetailCommentInfo.vue'
 
 
 export default {
@@ -33,6 +35,7 @@ export default {
     Scroll,
     DetailGoodsInfo,
     DetailParamInfo,
+    DetailCommentInfo,
   },
   data() {
     return {
@@ -41,7 +44,8 @@ export default {
       goods: {},
       shop: {},
       detailInfo: {},
-      paramInfo: {}
+      paramInfo: {},
+      commentInfo: {}
     }
   },
   created() {
@@ -51,7 +55,7 @@ export default {
     // 根据iid请求详情数据
     getDetail(this.iid).then(res => {
       // 获取顶部的图片轮播数据
-      // console.log(res);
+      console.log(res);
       const data = res.result
       this.topImages = data.itemInfo.topImages
       // 获取商品信息
@@ -62,6 +66,11 @@ export default {
       this.detailInfo = data.detailInfo
       // 获取参数的信息
       this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule)
+      // 获取评论信息
+      if(data.rate.cRate !== 0){
+        this.commentInfo = data.rate.list[0]
+        console.log(this.commentInfo);
+      }
     })
   },
   methods: {

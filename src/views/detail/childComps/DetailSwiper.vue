@@ -23,6 +23,11 @@ export default {
         return []
       }
     }
+  },
+  watch: {
+    topImages: function (newValue, oldValue) {
+      // console.log(newValue);
+    }
   }
 }
 </script>
