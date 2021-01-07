@@ -1,20 +1,20 @@
 <template>
-  <div class="goods-item" @click="itemClick">
+  <!-- <div class="goods-item" @click="itemClick">
     <img :src="goodsItem.show.img" :key="showImage" alt="" @load="imgLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
       <span class="collect">{{goodsItem.cfav}}</span>
     </div>
-  </div>
-  <!-- <div class="goods-item" @click="itemClick">
-    <img @load="imgLoad" v-lazy="showImage" :key="showImage" alt="">
+  </div> -->
+  <div class="goods-item" @click="itemClick">
+    <img @load="imgLoad" :src="showImage" :key="showImage" alt="">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
       <span class="collect">{{goodsItem.cfav}}</span>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <script>

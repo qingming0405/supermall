@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      time: 0
+      
     }
   },
   computed: {

@@ -37,6 +37,7 @@ import BackTop from 'components/content/backTop/BackTop.vue'
 import {getHomeMultidata, getHomeGoods} from 'network/home'
 
 import {debounce} from 'common/utils.js'
+import {itemListenerMixin} from 'common/mixin.js'
 
 export default {
   name: 'Home',
@@ -63,7 +64,8 @@ export default {
       isShowBackUp: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      saveY: 0
+      saveY: 0,
+      // itemImgListener: null
     }
   },
   computed: {
@@ -81,14 +83,15 @@ export default {
     this.getHomeGoods('sell')
 
   },
+  mixins: [itemListenerMixin],
   mounted() {
     //图片加载完成的事件监听
-    const refresh = debounce(this.$refs.scroll.refresh, 500)
-    // 监听全局事件
-    this.mitt.on('imgLoad', e => {
-      refresh()
-      // this.$refs.scroll && this.$refs.scroll.refresh()
-    })
+    // const refresh = debounce(this.$refs.scroll.refresh, 500)
+    // // 监听全局事件
+    // this.itemImgListener = () => {
+    //   refresh()
+    // }
+    // this.mitt.on('imgLoad', this.itemImgListener)
     
   },
   activated() {
@@ -97,6 +100,8 @@ export default {
   },
   deactivated() {
     this.saveY = this.$refs.scroll.getScrollY()
+
+    this.mitt.off('imgLoad',this.itemImgListener)
   },
   methods: {
     /**
