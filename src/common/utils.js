@@ -1,5 +1,5 @@
 // 防抖函数：延迟频繁执行的函数
-export function debounce(func, delay){
+export function debounce(func, delay=100){
   let timer = null
   return function(...args){
     timer && clearTimeout(timer)

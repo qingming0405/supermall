@@ -1,14 +1,14 @@
 <template>
   <div id="detail">
-    <detail-nav-bar></detail-nav-bar>
+    <detail-nav-bar @title-click="titleClick"></detail-nav-bar>
     <scroll ref="scroll" class="content">
       <detail-swiper :top-images="topImages"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
       <detail-goods-info :detailInfo="detailInfo" @image-load="imageLoad"></detail-goods-info>
-      <detail-param-info :paramInfo="paramInfo"></detail-param-info>
-      <detail-comment-info :commentInfo="commentInfo"/>
-      <goods-list :goods="recommends"/>
+      <detail-param-info ref="params" :paramInfo="paramInfo"></detail-param-info>
+      <detail-comment-info ref="comment" :commentInfo="commentInfo"/>
+      <goods-list ref="recommend" :goods="recommends"/>
     </scroll>
   </div>
 </template>
@@ -53,7 +53,9 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommends: [],
-      // itemImgListener: null
+      // itemImgListener: null,
+      themeTopYs: [],
+      getThemeTopY: null
     }
   },
   created() {
@@ -78,11 +80,20 @@ export default {
       if(data.rate.cRate !== 0){
         this.commentInfo = data.rate.list[0]
       }
+    })
 
-      // 请求推荐数据
-      getRecommend().then(res => {
-        this.recommends = res.data.list
-      })
+    // 请求推荐数据
+    getRecommend().then(res => {
+      this.recommends = res.data.list
+    })
+
+    // 给getThemeTopY赋值
+    this.getThemeTopY = debounce(() => {
+      this.themeTopYs = []
+      this.themeTopYs.push(0)
+      this.themeTopYs.push(this.$refs.params.$el.offsetTop)
+      this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
+      this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
     })
   },
   mixins: [itemListenerMixin],
@@ -99,9 +110,14 @@ export default {
     this.mitt.off('imgLoad',this.itemImgListener)
   },
   methods: {
+    titleClick(index){
+      this.$refs.scroll.scrollTo(0, -this.themeTopYs[index]+44, 100)
+    },
     imageLoad(){
       this.refresh()
       // this.$refs.scroll.refresh()
+
+      this.getThemeTopY()
     }
   }
 }

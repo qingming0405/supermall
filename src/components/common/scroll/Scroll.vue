@@ -70,7 +70,6 @@
         }
       },
       refresh() {
-        console.log('aaaaaaaaaaaa');
         this.scroll && this.scroll.refresh && this.scroll.refresh()
       },
       finishedPullUp() {
