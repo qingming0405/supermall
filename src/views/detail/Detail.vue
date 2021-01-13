@@ -10,6 +10,8 @@
       <detail-comment-info ref="comment" :commentInfo="commentInfo"/>
       <goods-list ref="recommend" :goods="recommends"/>
     </scroll>
+    <detail-bottom-bar></detail-bottom-bar>
+    <back-top v-show="isShowBackUp" @click="backClick"/>
   </div>
 </template>
 
@@ -27,7 +29,8 @@ import DetailCommentInfo from './childComps/DetailCommentInfo.vue'
 import GoodsList from 'components/content/goods/GoodsList.vue'
 
 import {debounce} from 'common/utils.js'
-import {itemListenerMixin} from 'common/mixin.js'
+import {itemListenerMixin, backTopMixin} from 'common/mixin.js'
+import DetailBottomBar from './childComps/DetailBottomBar.vue'
 
 
 export default {
@@ -42,6 +45,7 @@ export default {
     DetailParamInfo,
     DetailCommentInfo,
     GoodsList,
+    DetailBottomBar,
   },
   data() {
     return {
@@ -97,7 +101,7 @@ export default {
       this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
     })
   },
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin, backTopMixin],
   mounted() {
     // //图片加载完成的事件监听
     // const refresh = debounce(this.$refs.scroll.refresh, 500)
@@ -131,6 +135,9 @@ export default {
           break
         }
       }
+
+      // 判断backTop是否显示
+      this.isShowBackUp = (-position.y) > 1000
     }
   }
 }
@@ -145,6 +152,6 @@ export default {
   }
 
   .content{
-    height: calc(100% - 44px);
+    height: calc(100% - 44px - 49px);
   }
 </style>

@@ -32,12 +32,12 @@ import HomeSwiper from './childComps/HomeSwiper'
 import RecommendView from './childComps/RecommendView.vue'
 import FeatureView from './childComps/FeatureView.vue'
 import Scroll from 'components/common/scroll/Scroll.vue'
-import BackTop from 'components/content/backTop/BackTop.vue'
+// import BackTop from 'components/content/backTop/BackTop.vue'
 
 import {getHomeMultidata, getHomeGoods} from 'network/home'
 
 import {debounce} from 'common/utils.js'
-import {itemListenerMixin} from 'common/mixin.js'
+import {itemListenerMixin, backTopMixin} from 'common/mixin.js'
 
 export default {
   name: 'Home',
@@ -49,7 +49,7 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop,
+    // BackTop,
   },
   data() {
     return {
@@ -61,7 +61,7 @@ export default {
         'sell': {page: 0, list: []}
       },
       currentType: 'pop',
-      isShowBackUp: false,
+      // isShowBackUp: false,
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
@@ -83,7 +83,7 @@ export default {
     this.getHomeGoods('sell')
 
   },
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin, backTopMixin],
   mounted() {
     //图片加载完成的事件监听
     // const refresh = debounce(this.$refs.scroll.refresh, 500)
@@ -143,9 +143,9 @@ export default {
       this.$refs.tabControl1.currentIndex = index
       this.$refs.tabControl2.currentIndex = index
     },
-    backClick(){
-      this.$refs.scroll.scrollTo(0,0,500)
-    },
+    // backClick(){
+    //   this.$refs.scroll.scrollTo(0,0,500)
+    // },
     contentScroll(position){
       // 判断backTop是否显示
       this.isShowBackUp = (-position.y) > 1000
