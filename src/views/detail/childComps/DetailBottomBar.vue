@@ -41,7 +41,7 @@
 
 <style scoped>
   .bottom-bar {
-    height: 58px;
+    height: 49px;
     position: fixed;
     background-color: #fff;
     left: 0;
@@ -69,7 +69,7 @@
     display: block;
     width: 22px;
     height: 22px;
-    margin: 10px auto 3px;
+    margin: 5px auto 3px;
     background: url("~assets/img/detail/detail_bottom.png") 0 0/100%;
   }
 
@@ -84,7 +84,7 @@
   .bar-right {
     font-size: 15px;
     color: #fff;
-    line-height: 58px;
+    line-height: 49px;
   }
 
   .bar-right .cart {
