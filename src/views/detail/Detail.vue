@@ -149,7 +149,7 @@ export default {
       product.price = this.goods.realPrice
 
       // 将商品添加到购物车
-
+      this.$store.commit('addCart', product)
     }
   }
 }
