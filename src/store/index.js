@@ -5,26 +5,34 @@ export default createStore({
     cartList: []
   },
   mutations: {
-    addCart(state, payload){
-      let oldProduct = null
-      for(let item of state.cartList){
-        if(item.iid === payload.iid){
-          oldProduct = item
-          break
-        }
-      }
-      if(oldProduct){
-        oldProduct.count += 1
-      }
-      else{
-        payload.count = 1
-        state.cartList.push(payload)
-      }
-      console.log(state.cartList);
+    // mutations唯一的目的就是修改state中状态
+    // mutations中每个方法尽可能完成的事件比较单一一点
+    addCounter(state, payload){
+      payload.count++
+    },
+    addToCart(state, payload){
+      state.cartList.push(payload)
     }
   },
   actions: {
+    // actions处理异步操作或复杂事件
+    addCart(context, payload){
+      let oldProduct = context.state.cartList.find(item => item.iid === payload.iid)
+      if(oldProduct){
+        context.commit('addCounter', oldProduct)
+      }
+      else{
+        payload.count = 1
+        context.commit('addToCart', payload)
+      }
+      console.log(context.state.cartList);
+    }
   },
   modules: {
+  },
+  getters: {
+    cartLength(state){
+      return state.cartList.length
+    }
   }
 })
