@@ -20,5 +20,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .cart-list-item{
+    display: flex;
+  }
 </style>
