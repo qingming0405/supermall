@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cart-list-item">
     {{product}}
   </div>
 </template>
