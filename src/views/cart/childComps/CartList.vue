@@ -1,10 +1,8 @@
 <template>
   <div class="cart-list">
     <scroll class="content">
-      <li v-for="item in cartList" :key="item">
-        <cart-list-item v-for="(item,index) in cartList" :key="index"
-          :product="item"/>
-      </li>
+      <cart-list-item v-for="item in cartList" :key="item.iid"
+        :item-info="item"/>
     </scroll>
   </div>
 </template>

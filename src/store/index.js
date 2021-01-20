@@ -11,6 +11,7 @@ export default createStore({
       payload.count++
     },
     addToCart(state, payload){
+      payload.checked = true
       state.cartList.push(payload)
     }
   },
@@ -25,7 +26,6 @@ export default createStore({
         payload.count = 1
         context.commit('addToCart', payload)
       }
-      console.log(context.state.cartList);
     }
   },
   modules: {
