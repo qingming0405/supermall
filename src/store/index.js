@@ -13,6 +13,10 @@ export default createStore({
     addToCart(state, payload){
       payload.checked = true
       state.cartList.push(payload)
+    },
+    cartItemCheckedChange(state, payload){
+      payload.checked = !payload.checked
+      console.log(state.cartList);
     }
   },
   actions: {

@@ -1,7 +1,7 @@
 <template>
   <div id="shop-item">
     <div class="item-selector">
-      <CheckButton @click="checkedChange" :is-checked='itemInfo.checked'></CheckButton>
+      <CheckButton :is-checked="itemInfo.checked" @beChecked="checkedChange"></CheckButton>
     </div>
     <div class="item-img">
       <img :src="itemInfo.image" alt="商品图片">
@@ -26,24 +26,11 @@ export default {
     CheckButton
   },
   props: {
-    itemInfo: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  },
-  data() {
-    return {
-      isCheck: false
-    }
+    itemInfo: Object
   },
   methods: {
     checkedChange() {
-      console.log(this.itemInfo.checked)
-      // this.itemInfo.checked = false
-      // this.itemInfo.checked = !this.itemInfo.checked
-      // this.isCheck = !this.isCheck
+      this.$store.commit('cartItemCheckedChange', this.itemInfo)
     }
   }
 }
