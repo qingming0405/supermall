@@ -14,9 +14,14 @@ export default createStore({
       payload.checked = true
       state.cartList.push(payload)
     },
+    cartListCheckedAll(state, checked){
+      state.cartList.forEach(item => {
+        item.checked = checked
+      });
+    },
     cartItemCheckedChange(state, payload){
       payload.checked = !payload.checked
-      console.log(state.cartList);
+      // console.log(state.cartList);
     }
   },
   actions: {
