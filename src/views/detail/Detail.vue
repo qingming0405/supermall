@@ -12,6 +12,7 @@
     </scroll>
     <detail-bottom-bar @addToCart="addToCart"></detail-bottom-bar>
     <back-top v-show="isShowBackUp" @click="backClick"/>
+    <toast :message="message" :show="show"/>
   </div>
 </template>
 
@@ -32,6 +33,8 @@ import {debounce} from 'common/utils.js'
 import {itemListenerMixin, backTopMixin} from 'common/mixin.js'
 import DetailBottomBar from './childComps/DetailBottomBar.vue'
 
+import {mapActions} from 'vuex'
+import Toast from 'components/common/toast/Toast.vue'
 
 export default {
   name: 'Detail',
@@ -46,6 +49,7 @@ export default {
     DetailCommentInfo,
     GoodsList,
     DetailBottomBar,
+    Toast,
   },
   data() {
     return {
@@ -60,7 +64,9 @@ export default {
       // itemImgListener: null,
       themeTopYs: [],
       getThemeTopY: null,
-      currentIndex: 0
+      currentIndex: 0,
+      message: '',
+      show: false
     }
   },
   created() {
@@ -114,7 +120,11 @@ export default {
   unmounted() {
     this.mitt.off('imgLoad',this.itemImgListener)
   },
+  computed: {
+    
+  },
   methods: {
+    ...mapActions(['addCart']),
     titleClick(index){
       this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100)
     },
@@ -150,7 +160,17 @@ export default {
 
       // 将商品添加到购物车
       // this.$store.commit('addCart', product)
-      this.$store.dispatch('addCart', product)
+      // this.$store.dispatch('addCart', product).then(res => {
+      //   console.log(res);
+      // })
+      this.addCart(product).then(res => {
+        this.show = true
+        this.message = res
+
+        setTimeout(() => {
+          this.show = false
+        }, 1000);
+      })
     }
   }
 }

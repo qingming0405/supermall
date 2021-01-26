@@ -27,14 +27,18 @@ export default createStore({
   actions: {
     // actions处理异步操作或复杂事件
     addCart(context, payload){
-      let oldProduct = context.state.cartList.find(item => item.iid === payload.iid)
-      if(oldProduct){
-        context.commit('addCounter', oldProduct)
-      }
-      else{
-        payload.count = 1
-        context.commit('addToCart', payload)
-      }
+      return new Promise((resolve, reject) => {
+        let oldProduct = context.state.cartList.find(item => item.iid === payload.iid)
+        if(oldProduct){
+          context.commit('addCounter', oldProduct)
+          resolve('商品数量+1')
+        }
+        else{
+          payload.count = 1
+          context.commit('addToCart', payload)
+          resolve('添加新商品')
+        }
+      })  
     }
   },
   modules: {

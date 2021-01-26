@@ -7,7 +7,7 @@
     <div class="price">
       合计：¥{{totalPrice}}
     </div>
-    <div class="calculate">
+    <div class="calculate" @click="calcClick">
       去结算({{checkLength}})
     </div>
   </div>
@@ -46,6 +46,11 @@ export default {
   methods: {
     checkClick(){
       this.$store.commit('cartListCheckedAll', !this.isSelectAll)
+    },
+    calcClick(){
+      if(!this.isSelectAll){
+        
+      }
     }
   }
 }
